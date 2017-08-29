@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828215324) do
+ActiveRecord::Schema.define(version: 20170829004006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20170828215324) do
     t.text     "focus"
     t.text     "description"
     t.string   "logo"
+    t.string   "ticker"
   end
 
 end

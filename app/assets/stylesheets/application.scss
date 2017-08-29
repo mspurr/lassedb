@@ -17,3 +17,31 @@
 body {
   font-family: 'Open Sans', sans-serif;
 }
+.navbar-brand {
+  span {
+  font-weight: 600;
+  }
+}
+.navbar-nav > li > a {
+  &:hover {
+    background-color: #ececec !important;
+  }
+}
+.page {
+  margin-top: -50px;
+  padding-top: 100px;
+  min-height: 94vh;
+}
+.clogo {
+  height: 65px;
+}
+.c-chart {
+  height: 400px;
+}
+.wrap {
+}
+.info-t {
+  th {
+    padding-right: 45px;
+  }
+}

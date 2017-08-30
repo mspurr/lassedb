@@ -9,6 +9,48 @@
       <div class="col-md-6">
         <h1><%= @company.title %></h1>
         <h4>(<%= @company.exch %>:<%= @company.GTicker %>)</h4>
+        <table class="info-t c-t">
+          <tr>
+            <th>1 Week</th>
+            <th>1 Month</th>
+            <th>1 Year</th>
+            <th>3 Year</th>
+            <th>5 Year</th>
+            <th>Year to date</th>
+          </tr>
+          <tr>
+            <% if @week > 1 %>
+              <td class="t-change green">+<%= @week.round(2) %>%</td>
+            <% else %>
+              <td class="t-change red"><%= @week.round(2) %>%</td>
+            <% end %>
+            <% if @month > 1 %>
+              <td class="t-change green">+<%= @month.round(2) %>%</td>
+            <% else %>
+              <td class="t-change red"><%= @month.round(2) %>%</td>
+            <% end %>
+            <% if @year > 1 %>
+              <td class="t-change green">+<%= @year.round(2) %>%</td>
+            <% else %>
+              <td class="t-change red"><%= @year.round(2) %>%</td>
+            <% end %>
+            <% if @tyear > 1 %>
+              <td class="t-change green">+<%= @tyear.round(2) %>%</td>
+            <% else %>
+              <td class="t-change red"><%= @tyear.round(2) %>%</td>
+            <% end %>
+            <% if @fyear > 1 %>
+              <td class="t-change green">+<%= @fyear.round(2) %>%</td>
+            <% else %>
+              <td class="t-change red"><%= @fyear.round(2) %>%</td>
+            <% end %>
+            <% if @dyear > 1 %>
+              <td class="t-change green">+<%= @dyear.round(2) %>%</td>
+            <% else %>
+              <td class="t-change red"><%= @dyear.round(2) %>%</td>
+            <% end %>
+          </tr>
+        </table>
       </div>
       <div class="col-md-6 price-info">
         <table class="info-t">

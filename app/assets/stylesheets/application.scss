@@ -61,9 +61,7 @@ body {
   color: #b3b3b3;
   text-align: center;
   padding: 0px;
-  h3 {
-    margin-top: 28%;
-  }
+  margin-top: -17px;
 }
 .wrap {
 }
@@ -74,6 +72,18 @@ body {
   &:first-child {
     margin-bottom: 12px;
   }
+}
+.c-t {
+  font-size: 13px;
+  th {
+    padding-right: 30px !important; 
+  }
+  td {
+    padding-right: 30px !important;
+  }
+}
+.c-change {
+  font-size: 14px;
 }
 .t-price {
   font-weight: 400;

@@ -125,6 +125,20 @@ class CompaniesController < ApplicationController
       end
       @a = a[0..-3] + "]"
 
+      # Monthly change
+      @month = ((@data3[-1][1]).to_f-(@data3[-22][1]).to_f)/((@data3[-22][1]).to_f)*100
+      #weekly change
+      @week = ((@data3[-1][1]).to_f-(@data3[-6][1]).to_f)/((@data3[-6][1]).to_f)*100
+      #year change
+      @year = ((@data3[-1][1]).to_f-(@data3[-250][1]).to_f)/((@data3[-250][1]).to_f)*100
+      #3year change
+      @tyear = ((@data3[-1][1]).to_f-(@data3[-250*3][1]).to_f)/((@data3[-250*3][1]).to_f)*100
+      #3year change
+      @fyear = ((@data3[-1][1]).to_f-(@data3[-250*5][1]).to_f)/((@data3[-250*5][1]).to_f)*100
+      #year to date
+      now = @data3[-1][0][5..6].to_i
+      @dyear = ((@data3[-1][1]).to_f-(@data3[-now*21+1][1]).to_f)/((@data3[-now*21+1][1]).to_f)*100
+
 
 
     end

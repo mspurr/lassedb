@@ -1,34 +1,55 @@
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <div class="page">
   <p id="notice"><%= notice %></p>
   <div class="wrap">
     <img src="<%= @company.logo %>" class="clogo" />
     <br/>
     <hr>
-    <h1><%= @company.title %></h1>
-    <div class="row">
+    <div class="row info-row">
       <div class="col-md-6">
-        <h4>(<%= @company.ticker %>)</h4>
+        <h1><%= @company.title %></h1>
+        <h4>(<%= @company.exch %>:<%= @company.GTicker %>)</h4>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 price-info">
         <table class="info-t">
           <tr>
             <th>Stock price</th>
-            <th>Market Cap</th>
           </tr>
           <tr>
-            <th><%= @company.price %></th>
-            <th><%= @company.mcap %></th>
+            <td class="t-price"><%= @stock['l_cur'] %></td>
+          </tr>
+        </table>
+        <table class="info-t">
+          <tr>
+            <th>Change</th>
+            <th>Change in price</th>
+            <th>Last updated</th>
+          </tr>
+          <tr>
+            <% if @stock['cp'].to_f > 0 %>
+              <td class="t-mcap green"><%= @stock['cp'] %> %</td>
+            <% else %>
+              <td class="t-mcap red"><%= @stock['cp'] %> %</td>
+            <% end %>
+            <td class="t-mcap"><%= @stock['c'] %></td>
+            <td class="t-mcap"><%= @stock['lt'] %></td>
           </tr>
         </table>
       </div>
     </div>
     <hr>
     <div class="row">
+      <div class="col-md-12 focus-area">
+        <h4><b>Focus area</b>: <%= @company.focus %></h4>
+      </div>
+    </div>
+    <div class="row">
     <div class="col-md-5">
       <p><%= @company.description %></p>
     </div>
     <div class="col-md-7 c-chart">
-    <!-- TradingView Widget BEGIN -->
+      <h3>Chart window (coming)</h3>
+      <!-- TradingView Widget BEGIN
     <script type="text/javascript">
     new TradingView.widget({
       "autosize": true,
@@ -44,7 +65,7 @@
       "hideideas": true
     });
     </script>
-    <!-- TradingView Widget END -->
+     TradingView Widget END -->
     </div>
     </div>
 

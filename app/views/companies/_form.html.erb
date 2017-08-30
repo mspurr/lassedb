@@ -17,23 +17,23 @@
    </div><br/>
 
    <div class="field">
-    <%= f.label :ticker, "Company ticker: " %> <br/>
+    <%= f.label :ticker, "Ticker for TradingView chart: " %> <br/>
     <%= f.text_field :ticker %>
+   </div><br/>
+
+   <div class="field">
+    <%= f.label :GTicker, "Ticker for Google Finance API: " %> <br/>
+    <%= f.text_field :GTicker %>
+   </div><br/>
+
+   <div class="field">
+    <%= f.label :exch, "Exchange for Google Finance API: (eg. CPH/NASDAQ)" %> <br/>
+    <%= f.text_field :exch %>
    </div><br/>
 
    <div class="field">
     <%= f.label :description, "Description: " %> <br/>
     <%= f.text_area :description %>
-   </div><br/>
-
-   <div class="field">
-    <%= f.label :price, "Price: " %> <br/>
-    <%= f.text_field :price %>
-   </div><br/>
-
-   <div class="field">
-    <%= f.label :mcap, "Market Cap: " %> <br/>
-    <%= f.text_field :mcap %>
    </div><br/>
 
    <div class="field">

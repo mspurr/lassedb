@@ -1,6 +1,5 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
-
   # GET /companies
   # GET /companies.json
   def index
@@ -65,10 +64,17 @@ class CompaniesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_company
       @company = Company.find(params[:id])
+      url = 'http://finance.google.com/finance/info?client=ig&q=' + @company.exch + '%3A' + @company.GTicker
+      @stock = Faraday.get url
+      @stock = @stock.body
+      @stock = @stock.lines[1..-1].join
+      @stock = @stock.split.join(' ')[2..-1]
+      @stock = JSON.parse @stock
+      @stock = @stock[0]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:title, :description, :price, :mcap, :focus, :logo, :ticker)
+      params.require(:company).permit(:title, :description, :focus, :logo, :ticker, :GTicker, :exch)
     end
 end

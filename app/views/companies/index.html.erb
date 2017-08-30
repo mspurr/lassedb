@@ -1,29 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Companies</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @companies.each do |company| %>
-      <tr>
-        <%= company.title %>
-      </tr>
-      <img src="<%= company.logo %>"/>
-      <tr>
-        <td><%= link_to 'Show', company %></td>
-        <td><%= link_to 'Edit', edit_company_path(company) %></td>
-        <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Company', new_company_path %>
+<div class="page">
+  <div class="wrap">
+    <h1>Companies</h1>
+    <div class="row c-list">
+    	<% @companies.each do |company| %>
+    	<div class="col-md-12 list-i">
+    		<div class="col-md-1 img-wrap">
+    			<img src="<%= company.logo %>" class="list-img"/>
+    		</div>
+    		<div class="col-md-8 l-text">
+    			<p class="c-name"><%= company.title %></p>
+    			<p><%= company.focus %></p>
+    		</div>
+    		<div class="col-md-2 l-text">
+    			<u><%= link_to 'Show company', company_path(company.id) %></u>
+    		</div>
+    	</div>
+    	<% end %>
+    </div>
+    <br>
+    <%= link_to 'New Company', new_company_path %>
+  </div>
+</div>

@@ -19,36 +19,54 @@
             <th>Year to date</th>
           </tr>
           <tr>
-            <% if @week > 1 %>
+            <% if @week == "n/a" %>
+              <td class="t-change"><%= @week %></td>
+            <% elsif @week >= 0 %>
               <td class="t-change green">+<%= @week.round(2) %>%</td>
             <% else %>
               <td class="t-change red"><%= @week.round(2) %>%</td>
             <% end %>
-            <% if @month > 1 %>
+
+            <% if @month == "n/a" %>
+              <td class="t-change"><%= @month%></td>
+            <% elsif @month >= 0 %>
               <td class="t-change green">+<%= @month.round(2) %>%</td>
             <% else %>
               <td class="t-change red"><%= @month.round(2) %>%</td>
             <% end %>
-            <% if @year > 1 %>
+
+            <% if @year == "n/a" %>
+              <td class="t-change"><%= @year %></td>
+            <% elsif @year >= 0 %>
               <td class="t-change green">+<%= @year.round(2) %>%</td>
             <% else %>
               <td class="t-change red"><%= @year.round(2) %>%</td>
             <% end %>
-            <% if @tyear > 1 %>
+
+            <% if @tyear == "n/a" %>
+              <td class="t-change"><%= @tyear %></td>
+            <% elsif @tyear >= 0 %>
               <td class="t-change green">+<%= @tyear.round(2) %>%</td>
             <% else %>
               <td class="t-change red"><%= @tyear.round(2) %>%</td>
             <% end %>
-            <% if @fyear > 1 %>
+
+            <% if @fyear == "n/a" %>
+              <td class="t-change"><%= @fyear %></td>
+            <% elsif @fyear >= 0 %>
               <td class="t-change green">+<%= @fyear.round(2) %>%</td>
             <% else %>
               <td class="t-change red"><%= @fyear.round(2) %>%</td>
             <% end %>
-            <% if @dyear > 1 %>
+
+            <% if @dyear == "n/a" %>
+              <td class="t-change"><%= @dyear %></td>
+            <% elsif @dyear >= 0 %>
               <td class="t-change green">+<%= @dyear.round(2) %>%</td>
             <% else %>
               <td class="t-change red"><%= @dyear.round(2) %>%</td>
             <% end %>
+
           </tr>
         </table>
       </div>

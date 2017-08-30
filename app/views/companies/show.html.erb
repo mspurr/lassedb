@@ -47,28 +47,61 @@
     <div class="col-md-5">
       <p><%= @company.description %></p>
     </div>
-    <div class="col-md-7 c-chart">
-      <h3>Chart window (coming)</h3>
-      <!-- TradingView Widget BEGIN
+    <div class="col-md-7 c-chart" id="chartdiv">
+      <!-- amCharts javascript code -->
     <script type="text/javascript">
-    new TradingView.widget({
-      "autosize": true,
-      "symbol": "<%= @company.ticker %>",
-      "interval": "D",
-      "timezone": "Etc/UTC",
-      "theme": "Light",
-      "style": "1",
-      "locale": "en",
-      "toolbar_bg": "#f1f3f6",
-      "enable_publishing": false,
-      "allow_symbol_change": true,
-      "hideideas": true
-    });
+      AmCharts.makeChart("chartdiv",
+        {
+          "type": "serial",
+          "categoryField": "date",
+          "dataDateFormat": "YYYY-MM-DD",
+          "theme": "default",
+          "categoryAxis": {
+            "parseDates": true
+          },
+          "chartCursor": {
+            "enabled": true
+          },
+          "chartScrollbar": {
+            "enabled": true,
+            "graph": "g1",
+            "graphType": "line",
+            "scrollbarHeight": 30
+          },
+          "trendLines": [],
+          "graphs": [
+            {
+              "balloonText": "Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>",
+              "closeField": "close",
+              "fillAlphas": 0.9,
+              "fillColors": "#7f8da9",
+              "highField": "high",
+              "id": "g1",
+              "lineColor": "#7f8da9",
+              "lowField": "low",
+              "negativeFillColors": "#db4c3c",
+              "negativeLineColor": "#db4c3c",
+              "openField": "open",
+              "title": "Price:",
+              "type": "candlestick",
+              "valueField": "close"
+            }
+          ],
+          "guides": [],
+          "valueAxes": [
+            {
+              "id": "ValueAxis-1"
+            }
+          ],
+          "allLabels": [],
+          "balloon": {},
+          "titles": [],
+          "dataProvider": <%= raw @a.as_json %>
+        }
+      );
     </script>
-     TradingView Widget END -->
     </div>
     </div>
-
     <hr>
     <%= link_to 'Edit', edit_company_path(@company) %> |
     <%= link_to 'Back', companies_path %>

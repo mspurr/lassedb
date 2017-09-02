@@ -8,7 +8,11 @@
     <div class="row info-row">
       <div class="col-md-6">
         <h1><%= @company.title %></h1>
-        <h4>(<%= @company.exch %>:<%= @company.GTicker %>)</h4>
+        <% if @company.GTicker.empty? %>
+          <h4>(<%= @company.yticker.split('.')[0] %>:<%= @company.yticker.split('.')[1] %>)</h4>
+        <% else %>
+          <h4>(<%= @company.exch %>:<%= @company.GTicker %>)</h4>
+        <% end %>
         <table class="info-t c-t">
           <tr>
             <th>1 Week</th>
@@ -76,8 +80,13 @@
             <th>Stock price</th>
           </tr>
           <tr>
-            <td class="t-price"><%= @stock['l_cur'] %></td>
-          </tr>
+            <% if @company.GTicker.empty? %>
+              
+            <% else %>
+              <td class="t-price"> <%= @stock['l_cur'] %></td>
+            <% end %>
+            
+          </tr> 
         </table>
         <table class="info-t">
           <tr>
@@ -86,13 +95,23 @@
             <th>Last updated</th>
           </tr>
           <tr>
-            <% if @stock['cp'].to_f > 0 %>
-              <td class="t-mcap green"><%= @stock['cp'] %> %</td>
+            <% if @company.GTicker.empty? %>
+              
             <% else %>
-              <td class="t-mcap red"><%= @stock['cp'] %> %</td>
+              <% if @stock['cp'].to_f > 0 %>
+                <td class="t-mcap green"><%= @stock['cp'] %>%</td>
+              <% else %>
+                <td class="t-mcap red"><%= @stock['cp'] %> %</td>
+              <% end %>
             <% end %>
-            <td class="t-mcap"><%= @stock['c'] %></td>
-            <td class="t-mcap"><%= @stock['lt'] %></td>
+            
+            <% if @company.GTicker.empty? %>
+              
+            <% else %>
+              <td class="t-mcap"><%= @stock['c'] %></td>
+              <td class="t-mcap"><%= @stock['lt'] %></td>
+            <% end %>
+            
           </tr>
         </table>
       </div>
@@ -161,6 +180,9 @@
       );
     </script>
     </div>
+    <%= @test %>
+    <hr>
+    <%= @p %>
     </div>
     <hr>
     <%= link_to 'Edit', edit_company_path(@company) %> |

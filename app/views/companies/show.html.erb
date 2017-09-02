@@ -1,4 +1,5 @@
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script src="tippy.js"></script>
 <div class="page">
   <p id="notice"><%= notice %></p>
   <div class="wrap">
@@ -77,11 +78,11 @@
       <div class="col-md-6 price-info">
         <table class="info-t">
           <tr>
-            <th>Stock price</th>
+            <th>Stock price <span id="warning" title="This particular stock might experience delayed prices. - Please look at the Last Updated tab for time accuracy.">Warning</span></th>
           </tr>
           <tr>
             <% if @company.GTicker.empty? %>
-              
+              <td class="t-price"> <%= @stockPrice.round(3) %></td>
             <% else %>
               <td class="t-price"> <%= @stock['l_cur'] %></td>
             <% end %>
@@ -96,7 +97,11 @@
           </tr>
           <tr>
             <% if @company.GTicker.empty? %>
-              
+              <% if @change > 0 %>
+                <td class="t-mcap green"><%= @change %>%</td>
+              <% else %>
+                <td class="t-mcap red"><%= @change %> %</td>
+              <% end %>
             <% else %>
               <% if @stock['cp'].to_f > 0 %>
                 <td class="t-mcap green"><%= @stock['cp'] %>%</td>
@@ -106,7 +111,12 @@
             <% end %>
             
             <% if @company.GTicker.empty? %>
-              
+              <% if @changeP > 0 %>
+                <td class="t-mcap">+<%= @changeP.round(3) %></td>
+              <% else %>
+                <td class="t-mcap"><%= @changeP.round(3) %></td>
+              <% end %>
+              <td class="t-mcap"><%= @currTime %></td>
             <% else %>
               <td class="t-mcap"><%= @stock['c'] %></td>
               <td class="t-mcap"><%= @stock['lt'] %></td>
@@ -180,9 +190,10 @@
       );
     </script>
     </div>
-    <%= @test %>
+    <script>
+    tippy('#warning', {arrow: true})
+    </script>
     <hr>
-    <%= @p %>
     </div>
     <hr>
     <%= link_to 'Edit', edit_company_path(@company) %> |

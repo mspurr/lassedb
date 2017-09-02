@@ -65,8 +65,38 @@ class CompaniesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def price
       @company = Company.find(params[:id])
+
+
       # check if google ticker is defined
       if @company.GTicker.to_s.strip.empty?
+
+        #collect the current stockprice of a company not on google finance
+        url = "https://query1.finance.yahoo.com/v7/finance/chart/" + @company.yticker + "?range=1d&interval=1m&indicators=quote&includeTimestamps=true"
+        price = Faraday.get url
+        price = price.body
+        price = JSON.parse price
+        price = price['chart']['result']
+        prevClose = price[0]['meta']['previousClose']
+        @lastUpdated = Time.at(price[0]['meta']['currentTradingPeriod']['post']['end']).strftime("20%y-%m-%d %H:%M")
+        currPrice = price[0]['indicators']['quote'][0]['close']
+        currTime = price[0]['timestamp']
+
+        n=0
+        @stockPrice = []
+        @stockTime = []
+        while n < currPrice.length
+          if currPrice[n] == nil
+          else
+            @stockPrice.append(currPrice[n])
+            @stockTime.append(currTime[n])
+          end
+          n=n+1
+        end
+        @stockPrice = @stockPrice[-1]
+        @currTime = Time.at(@stockTime[-1]).strftime("20%y-%m-%d %H:%M")
+        @change = ((@stockPrice-prevClose)/(@stockPrice)*100).round(3)
+        @changeP = @stockPrice-prevClose
+
 
 
 

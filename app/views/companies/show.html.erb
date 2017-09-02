@@ -78,7 +78,11 @@
       <div class="col-md-6 price-info">
         <table class="info-t">
           <tr>
+          <% if @company.GTicker.empty? %>
             <th>Stock price <span id="warning" title="This particular stock might experience delayed prices. - Please look at the Last Updated tab for time accuracy.">Warning</span></th>
+          <% else %>
+            <th>Stock price</th>
+          <% end %>
           </tr>
           <tr>
             <% if @company.GTicker.empty? %>

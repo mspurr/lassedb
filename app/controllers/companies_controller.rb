@@ -259,6 +259,7 @@ class CompaniesController < ApplicationController
 
     def set_company
       @company = Company.find(params[:id])
+      @focus_areas = @company.focus.split(', ')
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

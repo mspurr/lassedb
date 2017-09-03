@@ -1,25 +1,32 @@
-<p id="notice"><%= notice %></p>
-
-<div class="page">
-  <div class="wrap">
-    <h1>Companies</h1>
-    <div class="row c-list">
-    	<% @companies.each do |company| %>
-    	<div class="col-md-12 list-i">
-    		<div class="col-md-1 img-wrap">
-    			<img src="<%= company.logo %>" class="list-img"/>
-    		</div>
-    		<div class="col-md-8 l-text">
-    			<p class="c-name"><%= company.title %></p>
-    			<p><%= company.focus %></p>
-    		</div>
-    		<div class="col-md-2 l-text">
-    			<u><%= link_to 'Show company', company_path(company.id) %></u>
-    		</div>
-    	</div>
-    	<% end %>
+<div class="header">
+  <div class="container w-container">
+    <div class="div-block">
+      <h1 class="heading">Get insider insight into the biotech industry.</h1>
+      <p class="paragraph">Get the insider knowledge into the biotech industry necessary to make in-depth company analysis. Pharmaview* collects information such as stock prices, focus areas, product information, pipeline status etc.</p>
     </div>
-    <br>
-    <%= link_to 'New Company', new_company_path %>
+    <div class="div-block right-header w-clearfix">
+      <div class="div-block header-info">
+        <div class="text-block text-s">Products</div>
+        <div class="text-b text-block">2450</div>
+      </div>
+      <div class="div-block header-info">
+        <div class="text-block text-s">Focus areas</div>
+        <div class="text-b text-block">1285</div>
+      </div>
+      <div class="div-block header-info">
+        <div class="text-block text-s">Companies</div>
+        <div class="text-b text-block"><%= @companies.count %></div>
+      </div>
+    </div>
+    <div class="div-block header-link-div right-header"><a class="link" href="#">Browse companies&nbsp;→</a></div>
   </div>
 </div>
+<div class="container-2 w-container">
+  <div class="compange-page">
+  <% @companies.each do |c| %>
+    <%= link_to(company_path(c)) do %>
+      <b><%= c.title %></b><br><br>
+    <% end %>
+  <% end %>
+  </div>
+</div

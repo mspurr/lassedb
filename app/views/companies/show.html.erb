@@ -1,147 +1,137 @@
-<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-<script src="tippy.js"></script>
-<div class="page">
-  <p id="notice"><%= notice %></p>
-  <div class="wrap">
-    <img src="<%= @company.logo %>" class="clogo" />
-    <br/>
-    <hr>
-    <div class="row info-row">
-      <div class="col-md-6">
-        <h1><%= @company.title %></h1>
-        <% if @company.GTicker.empty? %>
-          <h4>(<%= @company.yticker.split('.')[0] %>:<%= @company.yticker.split('.')[1] %>)</h4>
+<div class="container-2 w-container">
+<div class="compange-page">
+<div class="div-block-2 w-clearfix"><img class="image" height="55" sizes="188.734375px" src="images/Genmab.svg.png" srcset="<%= @company.logo %>"><a class="button w-button" href="<%= edit_company_path(@company) %>">Edit</a></div>
+<div class="company-main-header w-clearfix">
+  <div class="div-block-3 w-clearfix">
+    <h1 class="company-title"><%= @company.title %></h1>
+    <% if @company.GTicker.empty? %>
+      <h4 class="company-symbol">(<%= @company.yticker.split('.')[0] %>:<%= @company.yticker.split('.')[1] %>)</h4>
+    <% else %>
+      <h4 class="company-symbol">(<%= @company.exch %>:<%= @company.GTicker %>)</h4>
+    <% end %>
+    <div class="div-block-10">
+      <div class="text-block-2">1 Week</div>
+      <% if @week == "n/a" %>
+        <div class="text-block-3"><%= @week %></div>
+      <% elsif @week >= 0 %>
+        <div class="text-block-3 green">+<%= @week.round(2) %>%</div>
+      <% else %>
+        <div class="text-block-3 red"><%= @week.round(2) %>%</div>
+      <% end %>
+    </div>
+    <div class="div-block-10">
+      <div class="text-block-2">1 Month</div>
+      <% if @month == "n/a" %>
+        <div class="text-block-3"><%= @month%></div>
+      <% elsif @month >= 0 %>
+        <div class="text-block-3 green">+<%= @month.round(2) %>%</div>
+      <% else %>
+        <div class="text-block-3 red"><%= @month.round(2) %>%</div>
+      <% end %>
+    </div>
+    <div class="div-block-10">
+      <div class="text-block-2">1 Year</div>
+      <% if @year == "n/a" %>
+        <div class="text-block-3"><%= @year %></div>
+      <% elsif @year >= 0 %>
+        <div class="text-block-3 green">+<%= @year.round(2) %>%</div>
+      <% else %>
+        <div class="text-block-3 red"><%= @year.round(2) %>%</div>
+      <% end %>
+    </div>
+    <div class="div-block-10">
+      <div class="text-block-2">3 Years</div>
+      <% if @tyear == "n/a" %>
+        <div class="text-block-3"><%= @tyear %></div>
+      <% elsif @tyear >= 0 %>
+        <div class="text-block-3 green">+<%= @tyear.round(2) %>%</div>
+      <% else %>
+        <div class="text-block-3 red"><%= @tyear.round(2) %>%</div>
+      <% end %>
+    </div>
+    <div class="div-block-10">
+      <div class="text-block-2">5 Years</div>
+      <% if @fyear == "n/a" %>
+        <div class="text-block-3"><%= @fyear %></div>
+      <% elsif @fyear >= 0 %>
+        <div class="text-block-3 green">+<%= @fyear.round(2) %>%</div>
+      <% else %>
+        <div class="text-block-3 red"><%= @fyear.round(2) %>%</div>
+      <% end %>
+    </div>
+    <div class="div-block-10 last-info-div">
+      <div class="text-block-2">Year to date</div>
+      <% if @dyear == "n/a" %>
+        <div class="text-block-3"><%= @dyear %></div>
+      <% elsif @dyear >= 0 %>
+        <div class="text-block-3 green">+<%= @dyear.round(2) %>%</div>
+      <% else %>
+        <div class="text-block-3 red"><%= @dyear.round(2) %>%</div>
+      <% end %>
+    </div>
+  </div>
+  <div class="div-block-4 w-clearfix">
+    <div class="div-block-10 stock-price-div">
+      <% if @company.GTicker.empty? %>
+        <div class="stock-text text-block-2">Stock price<span id="warning" title="This particular stock might experience delayed prices. - Please look at the Last Updated tab for time accuracy.">Warning</span></div>
+      <% else %>
+        <div class="stock-text text-block-2">Stock price</div>
+      <% end %>
+      <% if @company.GTicker.empty? %>
+        <div class="stock-price"> <%= @stockPrice.round(3) %></div>
+      <% else %>
+        <div class="stock-price"> <%= @stock['l_cur'] %></div>
+      <% end %>
+    </div>
+    <div class="change-div">
+      <div class="text-block-2">Change</div>
+      <% if @company.GTicker.empty? %>
+        <% if @change > 0 %>
+          <div class="text-block-8 green">+<%= @change %>%</div>
         <% else %>
-          <h4>(<%= @company.exch %>:<%= @company.GTicker %>)</h4>
+          <div class="text-block-8 red"><%= @change %> %</div>
         <% end %>
-        <table class="info-t c-t">
-          <tr>
-            <th>1 Week</th>
-            <th>1 Month</th>
-            <th>1 Year</th>
-            <th>3 Year</th>
-            <th>5 Year</th>
-            <th>Year to date</th>
-          </tr>
-          <tr>
-            <% if @week == "n/a" %>
-              <td class="t-change"><%= @week %></td>
-            <% elsif @week >= 0 %>
-              <td class="t-change green">+<%= @week.round(2) %>%</td>
-            <% else %>
-              <td class="t-change red"><%= @week.round(2) %>%</td>
-            <% end %>
-
-            <% if @month == "n/a" %>
-              <td class="t-change"><%= @month%></td>
-            <% elsif @month >= 0 %>
-              <td class="t-change green">+<%= @month.round(2) %>%</td>
-            <% else %>
-              <td class="t-change red"><%= @month.round(2) %>%</td>
-            <% end %>
-
-            <% if @year == "n/a" %>
-              <td class="t-change"><%= @year %></td>
-            <% elsif @year >= 0 %>
-              <td class="t-change green">+<%= @year.round(2) %>%</td>
-            <% else %>
-              <td class="t-change red"><%= @year.round(2) %>%</td>
-            <% end %>
-
-            <% if @tyear == "n/a" %>
-              <td class="t-change"><%= @tyear %></td>
-            <% elsif @tyear >= 0 %>
-              <td class="t-change green">+<%= @tyear.round(2) %>%</td>
-            <% else %>
-              <td class="t-change red"><%= @tyear.round(2) %>%</td>
-            <% end %>
-
-            <% if @fyear == "n/a" %>
-              <td class="t-change"><%= @fyear %></td>
-            <% elsif @fyear >= 0 %>
-              <td class="t-change green">+<%= @fyear.round(2) %>%</td>
-            <% else %>
-              <td class="t-change red"><%= @fyear.round(2) %>%</td>
-            <% end %>
-
-            <% if @dyear == "n/a" %>
-              <td class="t-change"><%= @dyear %></td>
-            <% elsif @dyear >= 0 %>
-              <td class="t-change green">+<%= @dyear.round(2) %>%</td>
-            <% else %>
-              <td class="t-change red"><%= @dyear.round(2) %>%</td>
-            <% end %>
-
-          </tr>
-        </table>
-      </div>
-      <div class="col-md-6 price-info">
-        <table class="info-t">
-          <tr>
-          <% if @company.GTicker.empty? %>
-            <th>Stock price <span id="warning" title="This particular stock might experience delayed prices. - Please look at the Last Updated tab for time accuracy.">Warning</span></th>
-          <% else %>
-            <th>Stock price</th>
-          <% end %>
-          </tr>
-          <tr>
-            <% if @company.GTicker.empty? %>
-              <td class="t-price"> <%= @stockPrice.round(3) %></td>
-            <% else %>
-              <td class="t-price"> <%= @stock['l_cur'] %></td>
-            <% end %>
-            
-          </tr> 
-        </table>
-        <table class="info-t">
-          <tr>
-            <th>Change</th>
-            <th>Change in price</th>
-            <th>Last updated</th>
-          </tr>
-          <tr>
-            <% if @company.GTicker.empty? %>
-              <% if @change > 0 %>
-                <td class="t-mcap green"><%= @change %>%</td>
-              <% else %>
-                <td class="t-mcap red"><%= @change %> %</td>
-              <% end %>
-            <% else %>
-              <% if @stock['cp'].to_f > 0 %>
-                <td class="t-mcap green"><%= @stock['cp'] %>%</td>
-              <% else %>
-                <td class="t-mcap red"><%= @stock['cp'] %> %</td>
-              <% end %>
-            <% end %>
-            
-            <% if @company.GTicker.empty? %>
-              <% if @changeP > 0 %>
-                <td class="t-mcap">+<%= @changeP.round(3) %></td>
-              <% else %>
-                <td class="t-mcap"><%= @changeP.round(3) %></td>
-              <% end %>
-              <td class="t-mcap"><%= @currTime %></td>
-            <% else %>
-              <td class="t-mcap"><%= @stock['c'] %></td>
-              <td class="t-mcap"><%= @stock['lt'] %></td>
-            <% end %>
-            
-          </tr>
-        </table>
-      </div>
+      <% else %>
+        <% if @stock['cp'].to_f > 0 %>
+          <div class="text-block-8 green"><%= @stock['cp'] %>%</div>
+        <% else %>
+          <div class="text-block-8 red"><%= @stock['cp'] %> %</div>
+        <% end %>
+      <% end %>
     </div>
-    <hr>
-    <div class="row">
-      <div class="col-md-12 focus-area">
-        <h4><b>Focus area</b>: <%= @company.focus %></h4>
-      </div>
+    <div class="change-div">
+      <div class="text-block-2">Change in price</div>
+      <% if @company.GTicker.empty? %>
+        <% if @changeP > 0 %>
+          <div class="change-p text-block-8">+<%= @changeP.round(3) %></div>
+        <% else %>
+          <div class="change-p text-block-8"><%= @changeP.round(3) %></div>
+        <% end %>
+      <% else %>
+        <div class="change-p text-block-8"><%= @stock['c'] %></div>
+      <% end %>
     </div>
-    <div class="row">
-    <div class="col-md-5">
-      <p><%= @company.description %></p>
+    <div class="change-div last-change-div">
+      <div class="text-block-2">Last Updated</div>
+      <% if @company.GTicker.empty? %>
+        <div class="change-p text-block-8"><%= @currTime %></div>
+      <% else %>
+        <div class="change-p text-block-8"><%= @stock['lt'] %></div>
+      <% end %>
     </div>
-    <div class="col-md-7 c-chart" id="chartdiv">
-      <!-- amCharts javascript code -->
+  </div>
+</div>
+<div class="div-block-11 w-clearfix">
+  <div class="text-block-9">Focus area:</div>
+  <% @focus_areas.each do |f| %>
+    <a class="link-2" href="#"><%= f %></a>
+  <% end %>
+</div>
+<div class="div-block-13 w-clearfix">
+  <div class="div-block-12">
+    <p class="paragraph-2"><%= @company.description %></p>
+  </div>
+  <div class="div-block-14 " id="chartdiv">
     <script type="text/javascript">
       AmCharts.makeChart("chartdiv",
         {
@@ -193,14 +183,8 @@
         }
       );
     </script>
-    </div>
-    <script>
-    tippy('#warning', {arrow: true})
-    </script>
-    <hr>
-    </div>
-    <hr>
-    <%= link_to 'Edit', edit_company_path(@company) %> |
-    <%= link_to 'Back', companies_path %>
   </div>
+</div>
+<%= link_to 'Back', companies_path %>
+</div>
 </div>

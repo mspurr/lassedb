@@ -753,6 +753,6 @@
   opacity: 0.9;
   transition: 0.2s;
 }
-#warning:&hover {
+#warning:hover {
   opacity: 1;
 }

@@ -154,7 +154,7 @@ class CompaniesController < ApplicationController
         @a = a[0..-3] + "]"
 
       else
-
+        
         url = 'http://finance.google.com/finance/info?client=ig&q=' + @company.exch + '%3A' + @company.GTicker
         @stock = Faraday.get url
         @stock = @stock.body

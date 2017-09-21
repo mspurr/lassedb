@@ -15,6 +15,51 @@
 @import "font-awesome";
 @import 'tippy';
 
+.header {
+  display: block;
+  background-image: url('header2.jpg') !important;
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+}
+.compange-page {
+  min-height: 80.5vh;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.green {
+  color: #1dcc92 !important;
+}
+.red {
+  color: #cc1d7e !important;
+}
+#warning {
+  font-size: 11px;
+  margin-left: 12px;
+  background-color: #cc1d7e;
+  padding: 1px 9px;
+  color: #fdfdfd;
+  border-radius: 3px;
+  border: 1px solid #8a1a58;
+  box-shadow: 0px 1px 1px #cccccc;
+  opacity: 0.9;
+  transition: 0.2s;
+}
+#warning:hover {
+  opacity: 1;
+}
+.company-title {
+  font-size: 3em;
+}
+#chartdiv {
+  background: none !important;
+}
+.secondary-header {
+  color: #203260;
+  font-weight: 200;
+}
+
 /*
 body {
   font-family: 'Open Sans', sans-serif;
@@ -26,6 +71,7 @@ body {
   font-weight: 600;
   }
 }
+
 .navbar-nav > li > a {
   font-weight: 600;
   color: #eaeaea !important;
@@ -190,4 +236,13 @@ body {
   color: #fdfdfd;
   box-shadow: 0px 1px 1px #6d6d6d;
 }
+#chartdiv {
+  .div-block-14 {
+    background: none !important;
+  }
+}
+.company-title {
+  font-size: 2.3em;
+}
+
 */

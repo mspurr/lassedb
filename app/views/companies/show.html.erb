@@ -1,6 +1,11 @@
 <div class="container-2 w-container">
 <div class="compange-page">
-<div class="div-block-2 w-clearfix"><img class="image" height="55" sizes="188.734375px" src="images/Genmab.svg.png" srcset="<%= @company.logo %>"><a class="button w-button" href="<%= edit_company_path(@company) %>">Edit</a></div>
+<div class="div-block-2 w-clearfix"><img class="image" height="55" sizes="188.734375px" src="images/Genmab.svg.png" srcset="<%= @company.logo %>">
+
+  <% if user_signed_in? %>
+    <a class="button w-button" href="<%= edit_company_path(@company) %>">Edit</a>
+  <% end %>
+  </div>
 <div class="company-main-header w-clearfix">
   <div class="div-block-3 w-clearfix">
     <h1 class="company-title"><%= @company.title %></h1>
@@ -185,6 +190,8 @@
     </script>
   </div>
 </div>
+  <hr></hr>
+  <h2 class="secondary-header">Pipeline</h2>
 <%= link_to 'Back', companies_path %>
 </div>
 </div>

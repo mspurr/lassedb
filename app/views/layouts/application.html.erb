@@ -30,9 +30,19 @@
     <div class="navbar w-nav" data-animation="default" data-collapse="small" data-duration="400">
     <div class="w-container">
       <nav class="nav-menu-2 w-clearfix w-nav-menu" role="navigation"><a class="w-nav-brand" href="#"></a>
-        <div class="mobile-nav nav-left nav-wrap"><a class="mobile-nav-link nav-link w-nav-link" href="<%= companies_path %>">COMPANIES</a><a class="mobile-nav-link nav-link w-nav-link" href="#">LINK</a><a class="mobile-nav-link nav-link w-nav-link" href="#">SIGN UP</a><a class="mobile-nav-link nav-link w-nav-link" href="#">LOG IN</a></div>
-        <div class="nav-left nav-wrap"><a class="nav-link w-nav-link" href="<%= companies_path %>">COMPANIES</a><a class="nav-link w-nav-link" href="#">LINK</a></div>
-        <div class="nav-right nav-wrap"><a class="nav-link w-nav-link" href="#">SIGN UP</a><a class="nav-link w-nav-link" href="#">LOG IN</a></div>
+        <div class="mobile-nav nav-left nav-wrap"><a class="mobile-nav-link nav-link w-nav-link" href="<%= companies_path %>">COMPANIES</a><a class="mobile-nav-link nav-link w-nav-link" href="#">BROWSE FOCUS AREAS</a><a class="mobile-nav-link nav-link w-nav-link" href="<%= new_user_registration_path %>">SIGN UP</a><a class="mobile-nav-link nav-link w-nav-link" href="<%= new_user_session_path %>">LOG IN</a></div>
+        <div class="nav-left nav-wrap"><a class="nav-link w-nav-link" href="<%= companies_path %>">COMPANIES</a><a class="nav-link w-nav-link" href="#">BROWSE FOCUS AREAS</a></div>
+        <% if user_signed_in? %>
+          <div class="nav-right nav-wrap"><div class="w-dropdown" data-delay="0">
+            <div class="dropdown-toggle-3 nav-link w-dropdown-toggle">
+              <div class="w-icon-dropdown-toggle"></div>
+              <div class="nav-user"><%= current_user.email %></div>
+            </div>
+            <nav class="dropdown-list-2 w-dropdown-list"><%= link_to('Settings', edit_user_registration_path, class: "dropdown-link-4 w-dropdown-link") %><a class="dropdown-link-4 w-dropdown-link" href="#">Observation list</a><%= link_to('Logout', destroy_user_session_path, method: :delete, class: "dropdown-link-4 w-dropdown-link") %></nav>
+          </div></div>
+        <% else %>
+        <div class="nav-right nav-wrap"><a class="nav-link w-nav-link" href="<%= new_user_registration_path %>">SIGN UP</a><a class="nav-link w-nav-link" href="<%= new_user_session_path %>">LOG IN</a></div>
+        <% end %>
       </nav>
       <div class="menu-button w-nav-button">
         <div class="icon w-icon-nav-menu"></div>
@@ -43,21 +53,10 @@
     <div class="w-container">
       <div class="form-block w-form">
         <form class="form" data-name="Search" id="wf-form-Search" name="wf-form-Search"><input class="main-search w-input" data-name="Search" id="Search" maxlength="256" name="Search" placeholder="Search for companies, focus areas, products etc." type="text"></form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form.</div>
-        </div>
+
       </div>
       <div class="form-block ticker-form w-form">
         <form class="form" data-name="Search" id="wf-form-Search" name="wf-form-Search"><input class="main-search w-input" data-name="Search 2" id="Search-2" maxlength="256" name="Search-2" placeholder="TICKER" type="text"></form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form.</div>
-        </div>
       </div>
     </div>
   </div>

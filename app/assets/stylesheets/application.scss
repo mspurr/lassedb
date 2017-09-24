@@ -34,6 +34,13 @@
 .red {
   color: #cc1d7e !important;
 }
+.clist-body {
+  a:first-child {
+    .clist-company {
+        border-top: 1px solid #e4e4e4;
+    }
+  }
+}
 #warning {
   font-size: 11px;
   margin-left: 12px;

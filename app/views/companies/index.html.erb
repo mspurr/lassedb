@@ -1,3 +1,4 @@
+<div class="compagne-page">
 <div class="header">
   <div class="container w-container">
     <div class="div-block">
@@ -22,11 +23,35 @@
   </div>
 </div>
 <div class="container-2 w-container">
-  <div class="compange-page">
-  <% @companies.each do |c| %>
-    <%= link_to(company_path(c)) do %>
-      <b><%= c.title %></b><br><br>
+<div class="browse-page">
+  <h1 class="heading-2">Browse companies</h1>
+  <div class="clist-wrap">
+    <div class="clist-header">
+      <div class="ch-1 w-clearfix">
+        <h4 class="clist-h1 h1">Company</h4>
+        <h4 class="clist-h2">Ticker</h4>
+        <h4 class="clist-h3">Focus area</h4>
+        <h4 class="clist-h4">Origin</h4>
+      </div>
+    </div>
+    <div class="clist-body">
+    <% @companies.each do |c| %>
+      <%= link_to(company_path(c)) do %>
+        <div class="clist-company w-clearfix">
+          <h4 class="heading-3"><%= c.title %></h4>
+          <div class="clist-ticker">(<%= c.yticker.split('.')[0] %>:<%= c.yticker.split('.')[1] %>)</div>
+          <div class="clist-focus">
+            <%= c.focus %>
+          </div>
+          <div class="clist-origin">Denmark</div>
+          <div class="div-block-15">
+            <div class="text-block-12"><%= truncate(c.description, length: 200) %></div>
+          </div>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
   </div>
+</div>
+</div>
+</div>
 </div>

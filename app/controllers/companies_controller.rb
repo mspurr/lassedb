@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :new, :update, :destroy, :create]
   before_action :set_company, only: [:show, :edit, :update, :destroy]
-  before_action :price, only: [:show]
+  before_action :price, :fetch_data, only: [:show]
   # GET /companies
   # GET /companies.json
   def index
@@ -64,6 +64,48 @@ class CompaniesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
+    def fetch_data
+      require 'zip'
+      require 'open-uri'
+
+      cc = Company.find(params[:id])
+
+      cases = []
+      url = "https://clinicaltrials.gov/ct2/download_studies?cond=&term=&type=&rslt=&age_v=&gndr=&intr=&titles=&outc=&spons=" + cc.apiTitle + "&spons_ex=Y&lead=&id=&cntry=&state=&city=&dist=&locn=&strd_s=&strd_e="
+      content = open(url)
+
+      Zip::File.open_buffer(content) do |zipfile|
+        zipfile.each do |file|
+          #data = File.read(file)
+
+          doc = Nokogiri::XML(file.get_input_stream.read)
+
+          trial = { 'brief_title' => doc.at_css('brief_title').text,
+                    'nct_id' => doc.at_css('nct_id').text,
+                    'official_title' => doc.at_css('official_title').text,
+                    'agency' => doc.at_css('agency').text,
+                    'brief_summary' => doc.css('brief_summary textblock').text,
+                    'detailed_description' => doc.css('detailed_description textblock').text,
+                    'overall_status' => doc.css('overall_status').text,
+                    'start_date' => doc.css('start_date').text,
+                    'completion_date' => doc.css('completion_date').text,
+                    'primary_completion_date' => doc.css('primary_completion_date').text,
+                    'phase' => doc.css('phase').text,
+                    'study_type' => doc.css('study_type').text,
+                    'intervention_name' => doc.css('intervention intervention_name').text
+                    }
+
+          cases.append(trial)
+        end
+      end
+
+      @trials = cases
+
+    end
+
+
+
     def price
       @company = Company.find(params[:id])
 
@@ -103,7 +145,7 @@ class CompaniesController < ApplicationController
 
         time = Date.today.to_time.to_i
         time2 = time - 157680000
-        
+
         #url = "https://query1.finance.yahoo.com/v7/finance/chart/" + @company.yticker + "?period1=" + time2.to_s + "&period2=" + time.to_s + "&interval=1d&indicators=quote&includeTimestamps=true"
         url = "https://query1.finance.yahoo.com/v7/finance/chart/" + @company.yticker + "?range=5y&interval=1d&indicators=quote&includeTimestamps=true"
         @stock = Faraday.get url
@@ -155,7 +197,6 @@ class CompaniesController < ApplicationController
         @a = a[0..-3] + "]"
 
       else
-        
         url = 'http://finance.google.com/finance/info?client=ig&q=' + @company.exch + '%3A' + @company.GTicker
         @stock = Faraday.get url
         @stock = @stock.body
@@ -265,6 +306,6 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:title, :description, :focus, :logo, :ticker, :GTicker, :exch, :yticker)
+      params.require(:company).permit(:title, :description, :focus, :logo, :ticker, :GTicker, :exch, :yticker, :apiTitle)
     end
 end

@@ -192,6 +192,81 @@
 </div>
   <hr></hr>
   <h2 class="secondary-header">Pipeline</h2>
+
+  <table class="pipe-table">
+    <tbody>
+    <tr>
+      <th class="pipe-h col-25">Product</th>
+      <th class="pipe-h col-25">Indication</th>
+      <th colspan="6" class="pipe-h col-50">Development phase</th>
+    </tr>
+    <tr class="gray-bg">
+      <td></td>
+      <td></td>
+      <td class="t-u-header">I</td>
+      <td class="t-u-header">I/II</td>
+      <td class="t-u-header">II</td>
+      <td class="t-u-header">III</td>
+      <td class="t-u-header">IIII</td>
+    </tr>
+    <% @trials.each do |t| %>
+    <tr class="body-tr">
+      <td class="bg product-t"><%= t['intervention_name'] %></td>
+      <td class="bg"></td>
+      <% if t['phase'] == 'Phase 1' %>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"></td>
+      <td class="t-phase-s"></td>
+      <td class="t-phase-s"></td>
+      <td class="t-phase-s"></td>
+      <% end %>
+      <% if t['phase'] == 'Phase 1/Phase 2' %>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"></td>
+      <td class="t-phase-s"></td>
+      <td class="t-phase-s"></td>
+      <% end %>
+      <% if t['phase'] == 'Phase 2' %>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"></td>
+      <td class="t-phase-s"></td>
+      <% end %>
+      <% if t['phase'] == 'Phase 3' %>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"></td>
+      <% end %>
+      <% if t['phase'] == 'Phase 4' %>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"><div class="green-field"></div></td>
+      <td class="t-phase-s"></td>
+      <% end %>
+    </tr>
+      <div class="pipeline-wrap">
+        <div class="title-wrap">
+          <h5><%= t['brief_title'] %></h5>
+        </div>
+        <div class="pipe-info">
+          <p class="inline-p right-margin-s">Start date: <%= t['start_date'] %></p>
+          <p class="inline-p">Anticipated completion date: <%= t['completion_date'] %></p>
+        </div>
+          
+          <p><%= t['brief_summary'] %></p>
+          <p>Current phase: <b><%= t['phase'] %></b></p>
+          <hr>
+      </div>
+      <% end %>
+    </tbody>
+  </table>
+
 <%= link_to 'Back', companies_path %>
 </div>
 </div>

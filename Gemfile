@@ -40,7 +40,7 @@ gem 'faraday', '~> 0.13.1'
 gem 'faraday-cookie_jar', '~> 0.0.6'
 gem 'tippy_rails', '~> 1.2', '>= 1.2.1.3'
 gem 'devise'
-gem 'rubyzip', '~> 1.2', '>= 1.2.1'
+gem 'rubyzip', '~> 1.3'
 gem 'nokogiri', '~> 1.8', '>= 1.8.4'
 
 group :development, :test do

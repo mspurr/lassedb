@@ -41,7 +41,7 @@ gem 'faraday-cookie_jar', '~> 0.0.6'
 gem 'tippy_rails', '~> 1.2', '>= 1.2.1.3'
 gem 'devise'
 gem 'rubyzip', '~> 1.2', '>= 1.2.1'
-gem 'nokogiri', '~> 1.8', '>= 1.8.4'
+gem 'nokogiri', '~> 1.10'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
